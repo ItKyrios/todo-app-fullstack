@@ -1,6 +1,7 @@
 import './App.css';
 import React, { useState, useEffect} from 'react';
 import axios from 'axios'; 
+const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:5000';
   
 function App() {
   const [todos, setTodos] = useState([]);
@@ -11,19 +12,19 @@ function App() {
   }, []);
 
   const fetchTodos = async () => {
-    const response = await axios.get('http://localhost:5000/todos');
+    const response = await axios.get(`${API_URL}/todos`);
     setTodos(response.data);
   };
 
   const addTodo = async () => {
     if (!newTodo) return;
-    const response = await axios.post('http://localhost:5000/todos', { text: newTodo });
+    const response = await axios.post(`${API_URL}/todos`, { text: newTodo });
     setTodos([...todos, response.data]);
     setNewTodo('');
   };
 
   const deleteTodo = async (id) => {
-    await axios.delete(`http://localhost:5000/todos/${id}`);
+    await axios.delete(`${API_URL}/todos/${id}`);
     setTodos(todos.filter((todo) => todo.id !== id));
   };
 
