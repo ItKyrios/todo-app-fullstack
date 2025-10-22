@@ -2,7 +2,13 @@ const express = require('express');
 const cors = require('cors');
 const app = express();
 
-app.use(cors());
+app.use(cors({
+    origin: [
+        'http://localhost:3000',
+        "https://todo-app-fullstack-frontend.onrender.com",
+        "https://todo-app-fullstack-live.onrender.com"
+    ]
+}));
 app.use(express.json());
 
 let todos = [];
